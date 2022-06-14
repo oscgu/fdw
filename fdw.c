@@ -5,15 +5,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static char *construct_fulldir(const char *dir, const char *file)
-{
-    char *temp = (char *) malloc((sizeof(dir) + sizeof(file) + 1) * sizeof(char));
-    strcpy(temp, dir);
-    strcat(temp, file);
-
-    return temp;
-}
-
 static unsigned long get_file_mod(const char *filePath)
 {
     struct stat fileStats;
@@ -42,14 +33,15 @@ static unsigned long get_file_mod_from_dir(const char *dirPath)
     while ((dir = readdir(d)) != NULL)
     {
         unsigned long fileMod;
-        char *fullDir = construct_fulldir(dirPath, dir->d_name);
+        char fullDir[256];
+        strcpy(fullDir, dirPath);
+        strcat(fullDir, dir->d_name);
         fileMod = get_file_mod(fullDir);
 
         if (lastMod < fileMod)
         {
             lastMod = fileMod;
         }
-        free(fullDir);
     }
 
     closedir(d);
