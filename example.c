@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include "fdw.h"
 
-void print()
+void
+print()
 {
     printf("Callback method called\n");
     fflush(stdout);
 }
 
-int main()
+int
+main()
 {
     watch_dir("testdir/", &print);
 }

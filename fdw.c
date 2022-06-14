@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static unsigned long get_file_mod(const char *filePath)
+static unsigned long
+get_file_mod(const char *filePath)
 {
     struct stat fileStats;
 
@@ -19,7 +20,8 @@ static unsigned long get_file_mod(const char *filePath)
     return fileStats.st_mtime;
 }
 
-static unsigned long get_file_mod_from_dir(const char *dirPath)
+static unsigned long
+get_file_mod_from_dir(const char *dirPath)
 {
     unsigned long lastMod = 0;
     struct dirent *dir;
@@ -48,8 +50,8 @@ static unsigned long get_file_mod_from_dir(const char *dirPath)
     return lastMod;
 }
 
-
-void watch_file(const char *filePath, void (*callbackfunction)())
+void
+watch_file(const char *filePath, void (*callbackfunction)())
 {
     unsigned long lastMod = get_file_mod(filePath);
 
@@ -65,7 +67,8 @@ void watch_file(const char *filePath, void (*callbackfunction)())
     }
 }
 
-void watch_dir(const char *dirPath, void (*callbackFunction)())
+void
+watch_dir(const char *dirPath, void (*callbackFunction)())
 {
     unsigned long lastMod = get_file_mod_from_dir(dirPath);
 
