@@ -25,7 +25,7 @@ static unsigned long get_file_mod(const char *filePath)
         exit(1);
     }
 
-    return fileStats.st_mtim.tv_sec;
+    return fileStats.st_mtime;
 }
 
 static unsigned long get_file_mod_from_dir(const char *dirPath)
@@ -60,7 +60,6 @@ static unsigned long get_file_mod_from_dir(const char *dirPath)
 void watch_file(const char *filePath, void (*callbackfunction)())
 {
     unsigned long lastMod = get_file_mod(filePath);
-    struct stat fileStats;
 
     for (;;)
     {
